@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+requests
+pandas
+python-dotenv
+langchain
+langchain-openai
+langchain-community
+faiss-cpu
+python-multipart
+numpy

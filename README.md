@@ -28,7 +28,8 @@ Traditional online fashion platforms, while vast in catalog size, struggle to de
 A user can upload or pick a single clothing item (top, bottom, or accessory), and the AI curates the rest.
 This turns confusion into confidence, boosting cross-selling and customer satisfaction.
 
-![alt text](image.png)
+<img width="1545" height="845" alt="image" src="https://github.com/user-attachments/assets/e1fd59cc-89d4-4026-8dda-66c4be7010ba" />
+
 
 - *Upload to Start* — Upload an image and let the system detect whether it’s a top, bottom or accessory.
 - *Auto Classify + Smart Suggestions* — AI (image + LLM) identifies the uploaded item and suggests matching top, bottom and accessory products from the catalog.
@@ -96,9 +97,8 @@ future scope.
 *Implementation Flowchart*
 ![alt text](image-8.png)
 
-
 # Made with ❤ by Team TriSpark 
-Members : Samriddhi Tripathi 
+Members : Samriddhi Tripathi,
 Bhavika Vishnoi 
 Pooja Singh 
 

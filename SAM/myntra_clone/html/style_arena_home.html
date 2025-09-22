@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Style Arena</title>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+  />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Amoresa&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+      background-color: #fff;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    .header {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 80px;
+      box-shadow: 0 8px 6px -6px #eee;
+      width: 100%;
+    }
+    .header > .logo-div img {
+      width: 51px;
+      margin-left: 60px;
+    }
+    .categories {
+      margin-left: 50px;
+      width: 33%;
+    }
+    .categories ul {
+      display: flex;
+      list-style-type: none;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    .categories ul li a {
+      padding: 28px 17px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      color: #282c3f;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      display: block;
+    }
+    .categories ul li:hover a {
+      color: #ff0095;
+    }
+    .search-div {
+      display: flex;
+      width: 39%;
+      background-color: #eee;
+      height: 40px;
+      align-items: center;
+      border-radius: 3px;
+      margin-left: 30px;
+    }
+    #searchpng {
+      width: 15px;
+      margin: 15px;
+      opacity: 0.5;
+    }
+    .search-div input {
+      width: 70%;
+      border: none;
+      margin-left: 2%;
+      background-color: #eee;
+      outline: none;
+      font-size: 15px;
+    }
+    .nav-last {
+      padding: 0 12px 0 17px;
+      display: flex;
+      height: 40px;
+      margin-left: 30px;
+      align-items: center;
+    }
+    .nav-last > div {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      align-items: center;
+      padding-top: 5px;
+      margin-left: 18px;
+      letter-spacing: 0.5px;
+    }
+    .nav-last img {
+      height: 32px !important;
+      width: 32px !important;
+      margin-bottom: 2px;
+      object-fit: contain;
+      filter: none;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      width: 100%;
+      height: 100vh;
+      background: url('../public/st.jpg') no-repeat center center/cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background: linear-gradient(to right, #7f5eff, #00c6ff);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: linear-gradient(to right, #00c6ff, #7f5eff);
+    }
+
+    /* HOW IT WORKS SECTION */
+    .how-it-works {
+      padding: 60px 20px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    .how-it-works h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .how-it-works p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .prizes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .card {
+      flex: 1 1 200px;
+      max-width: 250px;
+      border: 3px solid #00b3ad;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      background: #fff;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card h3 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .card p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.2; /* 👈 space kam ho gaya */
+  margin: 4px 0; 
+  text-align: left;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .search-div {
+        max-width: 100%;
+        margin: 10px 0;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .how-it-works h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ✅ Navbar -->
+  <div class="header sticky">
+    <div class="logo-div">
+      <a href="home.html">
+        <img
+          src="https://cdn.freelogovectors.net/wp-content/uploads/2021/02/myntra-logo-freelogovectors.net_.png"
+          alt="logo"
+        />
+      </a>
+    </div>
+    <div class="categories">
+      <ul>
+        <li><a href="mens.html">Men</a></li>
+        <li><a href="">Women</a></li>
+        <li><a href="">Kids</a></li>
+        <li><a href="">GENZ</a></li>
+        <li><a href="senora.html">SENORA</a></li>
+      </ul>
+    </div>
+    <div class="search-div">
+      <img
+        id="searchpng"
+        src="https://image.flaticon.com/icons/png/128/49/49116.png"
+        alt="search"
+      />
+      <input type="text" placeholder="Search for products, brands and more" />
+    </div>
+    <div class="nav-last">
+      <div>
+        <a href="sync.html">
+          <img src="../public/camera.png" alt="sync studio" style="width:38px;height:38px;" />
+        </a>
+        <div>SYNC STUDIO</div>
+      </div>
+      <div>
+        <a href="">
+          <img src="https://www.svgrepo.com/show/198180/user-profile.svg" alt="Profile" style="width:32px;height:32px;" />
+        </a>
+        <div>Profile</div>
+      </div>
+      <div>
+        <a href="">
+          <img src="https://www.svgrepo.com/show/14970/heart.svg" alt="Wishlist" style="width:32px;height:32px;" />
+        </a>
+        <div>Wishlist</div>
+      </div>
+      <div>
+        <a href="">
+          <img src="https://www.svgrepo.com/show/17522/bag.svg" alt="Bag" style="width:32px;height:32px;" />
+        </a>
+        <div>Bag</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Hero Banner -->
+  <section class="hero">
+    
+  </section>
+
+  <!-- ✅ How It Works Section -->
+  <section class="how-it-works" id="explore">
+    <h2>HOW IT WORKS</h2>
+    <p>
+      The <b>Style Arena</b> is a monthly challenge where users create two outfits for the same theme — one Budget Look with affordable items and one Premium Look with high-end brands, all from Myntra’s catalog.
+      After submitting, the community votes on the most creative pair, and top entries win vouchers and get featured.
+    </p>
+
+    <div class="prizes">
+      <div class="card">
+        <h3>Winner</h3>
+        <p>⭐ Gift voucher worth upto 2500</p>
+        <p>⭐ Featured on style arena</p>
+        <p>⭐ Exclusive badge on profile</p>
+      </div>
+      <div class="card">
+        <h3>1st Runner Up</h3>
+        <p>⭐ Gift voucher worth upto 1500</p>
+        <p>⭐ Featured on style arena</p>
+        <p>⭐ Exclusive badge on profile</p>
+      </div>
+      <div class="card">
+        <h3>2nd Runner Up</h3>
+        <p>⭐ Gift voucher worth upto 500</p>
+        <p>⭐ Featured on style arena</p>
+        <p>⭐ Exclusive badge on profile</p>
+      </div>
+      <div class="card">
+        <h3>Participation</h3>
+        <p>⭐ Every participant earns 100 reward points for entering in the competition</p>
+      </div>
+    </div>
+    <br />
+    <br />
+    
+    <a href="concert.html" class="btn">JOIN NOW !!</a>
+  </section>
+</body>
+</html>

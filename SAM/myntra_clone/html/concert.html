@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Myntra - Sync Studio</title>
+    <link rel="icon" href="https://constant.myntassets.com/web/assets/img/icon.5d108c858a0db793700f0be5d3ad1e120a01a500_2021.png" type="image/icon type" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Gentium+Plus:wght@700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+
+    <style>
+      /* START OF STYLES */
+
+      /* Generic and Myntra-specific styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f5f5f6;
+      }
+      .header {
+        display: flex;
+        height: 80px;
+        align-items: center;
+        background-color: white;
+        box-shadow: 0 8px 6px -6px #eee;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+      }
+      .header div img {
+        width: 51px;
+        margin-left: 60px;
+      }
+      .categories {
+        margin-left: 50px;
+        width: 50%;
+      }
+      .categories ul {
+        display: flex;
+        list-style-type: none;
+        align-items: center;
+      }
+      .categories li a {
+        padding: 28px 17px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        color: #282c3f;
+        font-weight: 600;
+        text-transform: uppercase;white-space: nowrap;
+      }
+      .dropdown-content1:hover {
+        border-bottom: 5px solid rgb(6, 47, 109);
+      }
+      .dropdown-content2:hover {
+        border-bottom: 5px solid rgb(238, 0, 119);
+      }
+      .dropdown-content3:hover {
+        border-bottom: 5px solid orangered;
+      }
+      .search-div {
+        display: flex;
+        width: 22%;
+        background-color: #eee;
+        height: 40px;
+        align-items: center;
+        justify-content: flex-start;
+        border-radius: 3px;
+      }
+      #searchpng {
+        width: 15px;
+        margin: 15px;
+        opacity: 0.5;
+      }
+      .search-div input {
+        width: 70%;
+        border: none;
+        margin-left: 2%;
+        background-color: #eee;
+      }
+      input:focus, textarea:focus, select:focus {
+        outline: none;
+      }
+      .nav-last {
+        padding: 0 12px 0 17px;
+        position: relative;
+        display: flex;
+        height: 40px;
+        margin-left: 30px;
+      }
+      .nav-last > div {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 500;
+        align-items: center;
+        padding-top: 5px;
+        margin-left: 15px;
+      }
+      #svg {
+        height: 15px;
+        margin-left: 0px;
+      }
+      .nav-text {
+        font-weight: bold;
+        color: #0c0836;
+      }
+
+      /* Section 1: THEME: Concert Night */
+      #concert-night-section {
+        position: relative;
+        width: 100%;
+        height: 75vh;
+        margin-top: 80px;
+        background-image: url('../public/cnt.jpg');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .bg-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 1;
+      }
+      .concert-content {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        text-align: right;
+        color: white;
+        z-index: 2;
+        padding: 20px;
+      }
+      .theme-text {
+        font-family: 'Cinzel', serif;
+        font-size: 5vw;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .concert-text {
+        font-family: 'Spectral', serif;
+        font-size: 1.2em;
+        font-style: italic;
+        font-weight: normal;
+      }
+      .button-container {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        width: 100%;
+        z-index: 2;
+        max-width: 800px;
+      }
+      .look-button-container {
+        width: 350px; /* Adjusted size */
+        height: 150px; /* Adjusted size */
+        border: 4px solid black; /* Black border */
+        border-radius: 15px;
+        background-color: white; /* White background for the whole box */
+        color: black;
+        padding: 15px; /* Increased padding */
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Lato', sans-serif;
+        text-decoration: none;
+      }
+      .look-button-container:hover {
+        background-color: #f0f0f0; /* Slight change on hover */
+      }
+      
+     .button-desc-box {
+        background-color: transparent; /* No white box in the image */
+        padding: 0;
+        margin-bottom: 10px; /* Spacing */
+      }
+      .button-desc {
+        font-size: 16px; /* Adjusted font size */
+        font-weight: normal; /* Less bold */
+        line-height: 1.2;
+        color: black;
+        text-shadow: none;
+      }
+      .look-text {
+        padding: 10px 20px;
+        border-radius: 25px; /* More rounded corners */
+        text-decoration: none;
+        font-weight: bold;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        font-size: 20px; /* Larger text */
+        text-shadow: none; /* No shadow */
+        border: 2px solid transparent;
+        color: white; /* Text color is white */
+        width: 100%; /* Make button fill container width */
+      }
+      /* Budget Look Button - Pink Gradient */
+      .budget-look-container .look-text {
+        background-image: linear-gradient(to right, #ff69b4, #b19cd9); /* Pink/Purple Gradient */
+        color: white;
+      }
+      .premium-look-container .look-text {
+        background-color: #ffcc00;
+        color: #0c0836;
+      }
+      .budget-look-container:hover .look-text {
+        background-color: #e68a00;
+        border-color: #e68a00;
+      }
+     .premium-look-container .look-text {
+        background-image: linear-gradient(to right, #ff69b4, #b19cd9); /* Pink/Purple Gradient */
+        color: white;
+      }
+      /* Hover effects */
+      .budget-look-container:hover .look-text {
+        background-image: linear-gradient(to right, #e05c9a, #9e8ac1); /* Slightly darker gradient on hover */
+      }
+      .premium-look-container:hover .look-text {
+        background-image: linear-gradient(to right, #e05c9a, #9e8ac1); /* Slightly darker gradient on hover */
+      }
+      
+      /* Resetting original concert text styles to accommodate new title structure */
+     
+      /* Section 2: TOP 3 OUTFITS */
+      #top-3-outfits-section {
+        padding: 50px 0;
+        background-color: #f5f5f6;
+      }
+      .top3-title-container {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .top3-title {
+        font-family: 'Racing Sans One', cursive;
+        font-size: 3em;
+        font-weight: bold;
+      }
+      .outfit-cards-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        padding: 0 50px;
+      }
+      .outfit-card {
+        width: 300px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #fff;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .outfit-card:hover {
+        transform: translateY(-5px);
+      }
+      .outfit-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+      }
+      .user-info {
+        display: flex;
+        align-items: center;
+      }
+      .user-info .fas.fa-user-circle { /* Targets the user icon */
+  font-size: 24px;   /* Makes the icon bigger. You can adjust this value (e.g., 1.5rem) */
+  margin-right: 8px; /* Creates space between the icon and the username */
+}
+      .user-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      .username {
+        font-family: 'Gentium Plus', serif;
+        font-weight: bold;
+      }
+      .interaction-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .likes-count, .plus-count {
+        font-size: 14px;
+      }
+      .red-heart {
+        color: #ff0000;
+        cursor: pointer;
+      }
+      .plus-icon {
+        cursor: pointer;
+      }
+      .likes-group, .plus-group { /* <-- YEH NAYE CSS RULES HAIN */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .likes-group .red-heart, .plus-group .plus-icon {
+          font-size: 1.2em;
+          margin-bottom: 3px;
+      }
+
+      /* Section 3: Premium vs Budget Collection */
+      #collection-section {
+        padding: 50px 0;
+        background-color: #fff;
+      }
+      .collection-header {
+        display: flex;
+        justify-content: flex-end;
+        width: 90%;
+        margin: 0 auto 30px auto;
+      }
+      .collection-title {
+        font-family: 'EB Garamond', serif;
+        font-size: 2em;
+        font-weight: bold;
+        color: #b18742;
+        text-align: right;
+        margin-left: 40px;
+      }
+      .collection-content {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 0 50px;
+      }
+      .main-outfit-container {
+        width: 40%;
+        position: relative;
+        text-align: center;
+      }
+      .main-outfit img {
+        width: 100%;
+        height: auto;
+      }
+      .outfit-details {
+        font-size: 28px;      /* Adjust this value to make the icon bigger */
+  margin-right: 10px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+      }
+      .username-text {
+        font-family: 'Gentium Plus', serif;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      .like-heart {
+        width: 25px;
+        height: 25px;
+      }
+      .side-collections {
+        width: 50%;
+        display: flex;
+        gap: 40px;
+      }
+      .premium-collection-items, .budget-collection-items {
+        width: 50%;
+        border-right: 1px solid #ddd;
+        padding-right: 20px;
+      }
+      .budget-collection-items {
+        border-right: none;
+        padding-right: 0;
+      }
+      .scrollable-items {
+        height: 600px;
+        overflow-y: scroll;
+        padding-right: 15px;
+      }
+      .scrollable-items::-webkit-scrollbar {
+        width: 8px;
+      }
+      .scrollable-items::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .scrollable-items::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      .scrollable-items::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      .item-card {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+      .item-card img {
+        width: 80px;
+        height: 80px;
+        margin-right: 15px;
+        border-radius: 5px;
+      }
+      .item-details {
+        flex-grow: 1;
+      }
+      .item-brand {
+        font-weight: bold;
+        font-size: 14px;
+        margin: 0;
+        font-family: sans-serif;
+        color: #0c0836;
+      }
+      .item-name {
+        font-size: 12px;
+        color: #555;
+        margin: 0;
+        font-family: sans-serif;
+      }
+      /* END OF STYLES */
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <a href="#">
+          <img src="https://cdn.freelogovectors.net/wp-content/uploads/2021/02/myntra-logo-freelogovectors.net_.png" alt="logo" />
+        </a>
+      </div>
+      <div class="categories">
+        <ul>
+          <li class="dropdown-content1 dropdown-content">
+            <a href="#">Men</a>
+          </li>
+          <li class="dropdown-content2 dropdown-content">
+            <a href="#">Women</a>
+          </li>
+          <li class="dropdown-content3 dropdown-content">
+            <a href="#">Kids</a>
+          </li>
+          <li><a href="#">GENZ</a></li>
+          <li><a href="#">SENORA</a></li>
+        </ul>
+      </div>
+
+      <div class="search-div">
+        <img id="searchpng" src="https://image.flaticon.com/icons/png/128/49/49116.png" alt="" />
+        <input type="text" placeholder="Search for products, brands and more" />
+      </div>
+
+      <div class="nav-last">
+        <div>
+          <a href="#">
+            <img id="svg" src="../public/camera.png" alt="sync studio" style="width: 25px; height: 21px" />
+          </a>
+          <div class="nav-text">SYNC STUDIO</div>
+        </div>
+        <div>
+          <a href="#">
+            <img id="svg" src="https://www.svgrepo.com/show/198180/user-profile.svg" alt="" />
+          </a>
+          <div>Profile</div>
+        </div>
+        <div>
+          <a href="#">
+            <img id="svg" src="https://www.svgrepo.com/show/14970/heart.svg" alt="" />
+          </a>
+          <div>Wishlist</div>
+        </div>
+        <div>
+          <a href="#">
+            <img id="svg" src="https://www.svgrepo.com/show/17522/bag.svg" alt="" />
+          </a>
+          <div>Bag</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="sync-main">
+      <section id="concert-night-section">
+        <div class="bg-overlay"></div>
+        <div class="concert-content">
+          <h1 class="theme-text">THEME: <br><span class="concert-text">Concert Night</span></h1>
+        </div>
+        <div class="button-container">
+            <a href="#" class="look-button-container budget-look-container">
+                <div class="button-desc-box">
+                    <p class="button-desc">Add here your affordable items from our affordable catalog</p>
+                </div>
+                <span class="look-text">Add your budget look</span>
+            </a>
+            <a href="#" class="look-button-container premium-look-container">
+                <div class="button-desc-box">
+                    <p class="button-desc">Add here your premium items from our luxurious catalog</p>
+                </div>
+                <span class="look-text">Add your premium look</span>
+            </a>
+        </div>
+      </section>
+
+      <section id="top-3-outfits-section">
+        <div class="top3-title-container">
+          <h2 class="top3-title">TOP 3 OUTFITS!</h2>
+        </div>
+        <div class="outfit-cards-container">
+          <div class="outfit-card">
+            <img src="../public/1win.jpg" class="outfit-image" />
+            <div class="card-footer">
+              <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+ 
+                <span class="username">SHERLIN</span>
+              </div>
+              <div class="interaction-icons">
+                <div class="likes-group">
+                  <i class="fas fa-heart red-heart"></i>
+                  <span class="likes-count">3.5k</span>
+                </div>
+                <div class="plus-group">
+                  <i class="fas fa-plus plus-icon"></i>
+                  <span class="plus-count">100</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="outfit-card">
+            <img src="../public/2win.jpg" alt="Outfit 2" class="outfit-image" />
+            <div class="card-footer">
+              <div class="user-info">
+                                <i class="fas fa-user-circle"></i>
+
+                <span class="username">GABRIELA</span>
+              </div>
+              <div class="interaction-icons">
+                <div class="likes-group">
+                  <i class="fas fa-heart red-heart"></i>
+                  <span class="likes-count">3.2k</span>
+                </div>
+                <div class="plus-group">
+                  <i class="fas fa-plus plus-icon"></i>
+                  <span class="plus-count">80</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="outfit-card">
+                           
+
+            <img src="../public/3win.jpg" 
+            alt="Outfit 3" class="outfit-image" />
+            <div class="card-footer">
+              <div class="user-info">
+               <i class="fas fa-user-circle"></i>
+                <span class="username">DANIEL</span>
+              </div>
+              <div class="interaction-icons">
+                <div class="likes-group">
+                  <i class="fas fa-heart red-heart"></i>
+                  <span class="likes-count">3.0k</span>
+                </div>
+                <div class="plus-group">
+                  <i class="fas fa-plus plus-icon"></i>
+                  <span class="plus-count">50</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="collection-section">
+        <div class="collection-header">
+          <h2 class="collection-title">PREMIUM COLLECTION</h2>
+          <h2 class="collection-title">BUDGET COLLECTION</h2>
+        </div>
+        <div class="collection-content">
+          <div class="main-outfit-container">
+            <div class="main-outfit">
+              <img src="../public/1win.jpg" >
+            </div>
+            <div class="outfit-details">
+               <i class="fas fa-user-circle"></i>
+
+                <span class="username">GABRIELA</span>
+           </div>
+              <img src="https://i.ibb.co/gJ6Fz31/heart-icon.png" alt="Heart" class="like-heart" />
+            
+          </div>
+          <div class="side-collections">
+            <div class="premium-collection-items scrollable-items">
+              <div class="item-card">
+                 <a href="https://www.myntra.com/tops/stylecast+x+revolte/stylecast-x-revolte-women-corset-crop-top/33782124/buy">
+                <img src="../public/IMG-20250919-WA0020.jpg" alt="Premium Top" /></a>
+                <div class="item-details">
+                  <p class="item-brand">StyleCast x Revolte</p>
+                  <p class="item-name">Women Corset Crop Top</p>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/jeans/happy2r/happy2r-women-slim-fit-high-rise-mildly-distressed-light-fade-jeans/32555184/buy">
+
+                <img src="../public/IMG-20250919-WA0021.jpg" alt="Premium Jeans" /></a>
+                <div class="item-details">
+                  <p class="item-brand">Happy2r</p>
+                  <p class="item-name">Women Slim Fit High-Rise Mildly Distressed Light Fade Jeans</p>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/casual-shoes/fila/fila-women-disruptor-ii-premium-textured-comfort-insole-basics-sneakers/22054306/buy ">
+                <img src="../public/IMG-20250919-WA0022.jpg" alt="Premium Sneakers" /></a>
+                <div class="item-details">
+                  <p class="item-brand">FILA</p>
+                  <p class="item-name">Women DISRUPTOR II PREMIUM Textured Comfort Insole Basics Sneakers</p>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/bracelet/fossil/fossil-women-gold-toned--white-mother-of-pearl-link-bracelet/20887850/buy ">
+                <img src="../public/IMG-20250919-WA0023.jpg" alt="Premium Bracelet" /></a>
+                <div class="item-details">
+                  <p class="item-brand">Fossil</p>
+                  <p class="item-name">Women Gold-Toned & White Mother of Pearl Link Bracelet</p>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/handbags/guess/guess-textured-pu-sling-bag/32004783/buy ">
+                <img src="../public/IMG-20250919-WA0024.jpg" alt="Premium Bag" /></a>
+                <div class="item-details">
+                  <p class="item-brand">GUESS</p>
+                  <p class="item-name">Textured PU Sling Bag</p>
+                </div>
+              </div>
+            </div>
+            <div class="budget-collection-items scrollable-items">
+              <div class="item-card">
+                <a href="https://www.myntra.com/tops/stylecast+x+revolte/stylecast-x-revolte-women-corset-crop-top/33782124/buy">
+                <img src="../public/IMG-20250919-WA0020.jpg" alt="Budget Top" />
+                <div class="item-details">
+                  <p class="item-brand">StyleCast x Revolte</p>
+                  <p class="item-name">Women Corset Crop Top</p></a>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/apparel-set/bebe/bebe-light-blue-denim-cropped-shirt-&-pearl-embellished-trouser-co-ord-set/33989341/buy?utm_source=social_share_pdp&utm_medium=deeplink&utm_campaign=social_share_pdp_deeplink">
+                <img src="../public/IMG-20250919-WA0025.jpg" alt="Budget Jeans" /></a>
+                <div class="item-details">
+                  <p class="item-brand">bebe</p>
+                  <p class="item-name">Light Blue Denim Cropped Pearl Embellished Trouser</p>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/casual-shoes/trase/trase-women-zenia-lace-ups-sneakers/35224172/buy ">
+                <img src="../public/IMG-20250919-WA0026.jpg" alt="Budget Sneakers" /></a>
+                <div class="item-details">
+                  <p class="item-brand">TRASE</p>
+                  <p class="item-name">Women Zenia Lace-Ups Sneakers</p>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/bracelet/dressberry/dressberry-gold-plated-alloy-bracelet/35713674/buy ">
+                <img src="../public/IMG-20250919-WA0027.jpg" alt="Budget Bracelet" />
+                </a>
+                <div class="item-details">
+                  <p class="item-brand">NEW</p>
+                  <p class="item-name">DressBerry Gold-Plated Alloy Bracelet</p>
+                </div>
+              </div>
+              <div class="item-card">
+                <a href="https://www.myntra.com/clutches/toobacraft/toobacraft-embellished-box-clutch/24253750/buy ">
+                <img src="../public/IMG-20250919-WA0028.jpg" alt="Budget Bag" /></a>
+                <div class="item-details">
+                  <p class="item-brand">Toobacraft</p>
+                  <p class="item-name">Embellished Box Clutch</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Sync Studio page loaded successfully!");
+      });
+    </script>
+  </body>
+</html>

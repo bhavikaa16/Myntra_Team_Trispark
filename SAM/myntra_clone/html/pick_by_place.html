@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pick by Place - Myntra</title>
+    <link rel="icon" href="https://constant.myntassets.com/web/assets/img/icon.5d108c858a0db793700f0be5d3ad1e120a01a500_2021.png" type="image/icon type" />
+    <style>
+        /* --- Base & Font Imports --- */
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('../public/pbp.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        /* --- Header --- */
+        .header { display: flex; height: 80px; align-items: center; background-color: white; box-shadow: 0 4px 6px -6px #222; position: sticky; top: 0; width: 100%; z-index: 10; }
+        .header .logo-div img { width: 51px; margin-left: 60px; }
+        .categories { margin-left: 50px;  }
+        .categories ul { display: flex; list-style-type: none; align-items: center; 
+          gap: 10px; /* A better way to add space between nav items */
+  padding: 0;
+  margin: 0;}
+        .categories ul li a { padding: 28px 17px; text-align: center; text-decoration: none; font-size: 14px; 
+        letter-spacing: 0.3px;
+        color: #282c3f; font-weight: 600; text-transform: uppercase;
+     white-space: nowrap; }
+        .search-div { display: flex; width: 39%; background-color: #f5f5f6; height: 40px; align-items: center; border-radius: 3px; margin-left: 30px; }
+        .search-div input { width: 90%; border: none; background-color: #f5f5f6; outline: none; font-size: 15px; padding-left: 15px; }
+        .nav-last { display: flex; align-items: center; margin-left: auto; padding-right: 40px; }
+        .nav-last a {
+  text-decoration: none; /* ✅ This removes the underline */
+  color: inherit;        /* This makes the text color match the parent */
+}
+        .nav-last > div { display: flex; flex-direction: column; text-align: center; font-size: 12px; font-weight: 600; align-items: center; margin-left: 25px; 
+            cursor: pointer; }
+        .nav-last img { height: 20px; width: 20px; margin-bottom: 5px; }
+
+        /* --- Main Content --- */
+        .main-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; min-height: calc(100vh - 80px); }
+        .main-title { font-family: 'Anton', sans-serif; font-size: 5rem; color: white; text-align: center; text-shadow: 3px 3px 0px #000, 6px 6px 10px rgba(0,0,0,0.5); letter-spacing: 2px; margin-bottom: 50px; }
+        .card-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
+        .card { width: 280px; padding: 25px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: #1a1a1a; }
+        .card-location { background: rgba(166, 227, 233, 0.5); }
+        .card-event { background: rgba(249, 178, 220, 0.5); }
+        .card-style { background: rgba(206, 178, 249, 0.5); }
+        .card-preference { background: rgba(249, 196, 178, 0.5); }
+        .input-field, .select-field { width: 100%; padding: 12px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; background: rgba(255, 255, 255, 0.7); font-size: 1rem; margin-bottom: 15px; }
+        .locate-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; background-color: #3e4a61; color: white; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background-color 0.3s; }
+        .locate-btn:hover { background-color: #2c3545; }
+
+        /* --- Perfect Matches Section --- */
+        #matches-section { width: 100%; padding: 80px 20px; background-color: #ffffff; }
+        .matches-title { text-align: center; font-size: 2.5rem; font-weight: 700; color: #333; letter-spacing: 1px; margin-bottom: 50px; text-transform: uppercase; }
+        .matches-grid { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; }
+        .match-card { width: 350px; height: 450px; background-color: #f4f5f7; border-radius: 20px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #888; overflow: hidden; }
+        .match-card a { display: block; width: 100%; height: 100%; }
+        .match-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .match-card a:hover img { transform: scale(1.05); }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-div"><a href="home.html"><img src="https://cdn.freelogovectors.net/wp-content/uploads/2021/02/myntra-logo-freelogovectors.net_.png" alt="logo" /></a></div><div class="categories"><ul><li><a href="#">Men</a></li><li><a href="#">Women</a></li><li><a href="#">Kids</a></li><li><a href="#">GENZ</a></li><li><a href="senora.html">Senora</a></li>
+        <li><a href="pick_by_place.html">PICK BY PLACE</a></li></ul></div><div class="search-div"><input type="text" placeholder="Search for products, brands and more" /></div><div class="nav-last">
+          <div>
+            <a href="sync.html">
+            <img src="../public/camera.png"alt="Sync Studio" />SYNC STUDIO
+          </a></div><div><img src="https://www.svgrepo.com/show/198180/user-profile.svg"
+ alt="Profile" /><div>Profile</div></div><div><img                 src="https://www.svgrepo.com/show/14970/heart.svg"
+ alt="Wishlist" /><div>Wishlist</div></div><div><img src="https://www.svgrepo.com/show/17522/bag.svg" alt="Bag" /><div>Bag</div></div></div>
+    </header>
+
+    <main class="main-container">
+        <h1 class="main-title">PICK BY PLACE</h1>
+        <div class="card-grid">
+            <div class="card card-location">
+                <h3>Location</h3>
+                <select id="location-input" class="select-field">
+                    <option value="">Enter city</option>
+                    <option value="Manali,India">Manali, India</option>
+                    <option value="Mumbai,India">Mumbai, India</option>
+                    <option value="Delhi,India">Delhi, India</option>
+                    <option value="Goa,India">Goa, India</option>
+                    <option value="Chennai,India">Chennai,India</option>
+                    <option value="Kasol,India">Kasol,India</option>
+
+                </select>
+                <button class="locate-btn" onclick="getLocation()">Locate Me</button>
+            </div>
+            <div class="card card-event">
+                <h3>Event</h3>
+                <input type="text" id="event-input" class="input-field" placeholder="e.g., winter casual">
+            </div>
+            <div class="card card-style">
+                <h3>Style</h3>
+                <input type="text" id="style-input" class="input-field" placeholder="e.g., knitwear">
+            </div>
+            <div class="card card-preference">
+                <h3>Preference</h3>
+                <input type="text" id="preference-input" class="input-field" placeholder="e.g., oversized pullover">
+            </div>
+        </div>
+    </main>
+
+    <section id="matches-section" style="display:none;">
+        <h2 class="matches-title">YOUR PERFECT MATCHES</h2>
+        <div class="matches-grid">
+            <div class="match-card"></div>
+            <div class="match-card"></div>
+            <div class="match-card"></div>
+        </div>
+    </section>
+
+    <script>
+    // --- Geolocation Script ---
+    function getLocation() { /* ... your existing geolocation code ... */ }
+
+    // --- SCRIPT FOR AI MODEL INTERACTION ---
+
+    const locationInput = document.getElementById('location-input');
+    const eventInput = document.getElementById('event-input');
+    const styleInput = document.getElementById('style-input');
+    const preferenceInput = document.getElementById('preference-input');
+    const matchesSection = document.getElementById('matches-section');
+    const matchCards = document.querySelectorAll('.match-card');
+
+    preferenceInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const location = locationInput.value;
+            const eventVal = eventInput.value;
+            const style = styleInput.value;
+            const preferences = preferenceInput.value;
+            
+            if (location && eventVal && style && preferences) {
+                // Construct the request body as per your Pydantic model
+                const requestBody = {
+                    location: location,
+                    event: eventVal,
+                    style: style,
+                    preferences: preferences,
+                    k: 3 // Or however many results you want
+                };
+                fetchMatches(requestBody);
+            } else {
+                alert("Please fill in all fields before pressing Enter.");
+            }
+        }
+    });
+
+    async function fetchMatches(data) {
+        matchesSection.style.display = 'block';
+        matchesSection.scrollIntoView();
+
+        matchCards.forEach(card => {
+            card.innerHTML = 'Finding your matches...';
+        });
+
+        try {
+            // UPDATED URL with the correct /recommend endpoint
+            const response = await fetch('https://weather-based-outfit-1.onrender.com/recommend', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                // Throw an error with the status to be caught below
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const results = await response.json();
+            // Pass the entire response object to the display function
+            displayMatches(results);
+
+        } catch (error) {
+            console.error('Error fetching matches:', error);
+            matchCards.forEach(card => {
+                card.innerHTML = 'Sorry, an error occurred.';
+            });
+        }
+    }
+    
+    function displayMatches(data) {
+        // The images are in data.results
+        const matches = data.results;
+
+        matchCards.forEach((card, index) => {
+            const match = matches[index];
+            // Check if a match exists and has an image_url
+            if (match && match.image_url) {
+                // NOTE: Your backend doesn't seem to return a 'product_url'. 
+                // I'm making the image clickable, but you might want to add product_url to your backend response.
+                // For now, it links to a placeholder.
+                const productUrl = "#"; // Replace with match.product_url if you add it
+                
+                card.innerHTML = `
+                    <a href="${productUrl}" target="_blank" rel="noopener noreferrer">
+                        <img src="${match.image_url}" alt="${match.title}">
+                    </a>
+                `;
+            } else {
+                card.innerHTML = 'No match found.';
+            }
+        });
+    }
+</script>
+</body>
+</html>

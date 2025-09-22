@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SENORA - Myntra</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #fff;
+      color: #333;
+    }
+    
+.mid-toolbar {
+  display: flex;
+  justify-content: space-between; /* left filters + right sort */
+  align-items: center;
+  border-bottom: 1px solid #eaeaec;
+  padding: 8px 0;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 20px;
+}
+
+.sort-dropdown select {
+  font-size: 14px;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+    /* Header/Navbar */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      border-bottom: 1px solid #eaeaea;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 100;
+    }
+
+    .header img {
+      height: 40px;
+    }
+
+    .categories ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      font-weight: bold;
+    }
+
+    .categories a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .categories a.active {
+      color: #4a00e0;
+    }
+
+    .search-div {
+      flex: 1;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      background: #f5f5f6;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .search-div input {
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+      margin-left: 8px;
+    }
+
+    .nav-last {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-last div {
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .nav-last img {
+      width: 22px;
+      display: block;
+      margin: 0 auto 4px;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      font-size: 14px;
+      color: #555;
+      padding: 16px 24px;
+    }
+
+    /* Main Layout */
+    .main-container {
+      display: flex;
+      padding: 0 24px;
+    }
+
+    /* Sidebar Filters */
+    .sidebar {
+      width: 250px;
+      padding-right: 20px;
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 16px;
+    }
+
+    .filter-section h4 {
+      margin-bottom: 8px;
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .filter-section label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      color: #282c3f;
+    }
+
+    .filter-section .muted { color:#7E818C; font-size: 11px; }
+    .filter-section .more { color:#ff3e6c; font-weight:600; font-size:12px; margin-top:6px; display:inline-block; }
+    .color-line { display:flex; align-items:center; gap:8px; }
+    .color-dot { width:14px; height:14px; border-radius:50%; border:1px solid #d4d5d9; display:inline-block; }
+    .color-blue { background:#4158D0; }
+    .color-pink { background:#ff7697; }
+    .color-green { background:#00a651; }
+    .color-black { background:#000; }
+    .color-multi { background:linear-gradient(90deg,#ff3e6c,#f8d800,#00a651,#4158D0); }
+    .color-yellow { background:#f8d800; }
+    .color-white { background:#fff; }
+
+    /* Price dual slider styling (single-track look) */
+    .price-range { position: relative; height: 22px; margin: 8px 0; }
+    .price-range input[type="range"] {
+      position: absolute; left: 0; top: 0; width: 100%; height: 22px; margin: 0; background: none; pointer-events: none;
+      -webkit-appearance: none; appearance: none;
+    }
+    .price-range input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: #ff8aa5; border-radius: 2px; }
+    .price-range input[type="range"]::-moz-range-track { height: 4px; background: #ff8aa5; border-radius: 2px; }
+    .price-range input[type="range"]::-webkit-slider-thumb { pointer-events: auto; -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid #ff3e6c; margin-top: -7px; }
+    .price-range input[type="range"]::-moz-range-thumb { pointer-events: auto; width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid #ff3e6c; }
+    .price-readout { font-weight: 700; color: #282c3f; margin-top: 6px; }
+
+    /* Product Section */
+    .products-container {
+      flex: 1;
+    }
+
+    .sort-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #eee;
+      padding: 10px;
+      border-radius: 6px;
+      transition: box-shadow 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      min-height: 330px;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 280px; /* Myntra-like thumbnail height */
+      border-radius: 4px;
+      margin-bottom: 10px;
+      object-fit: cover; /* crop to consistent view */
+      background: #f6f6f6;
+    }
+
+    .product-card h5 {
+      font-size: 12px;
+      margin-bottom: 2px;
+      color: #535766;
+      font-weight: 700;
+    }
+
+    .product-card p {
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 14px;
+      color: #282c3f;
+    }
+
+    .discount {
+      color: #ff3e6c;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .abc {
+  margin-left: 25px;  
+  font-size: 16px;
+  font-weight: bold;
+}
+
+    /* Mid-toolbar dropdown look */
+    .mid-toolbar { border-bottom: 1px solid #eaeaec; padding-bottom: 8px; }
+    .dropdown-group { position: relative; }
+    .dropdown-trigger { background: transparent; border: none; color: #3e4152; font-weight: 600; cursor: pointer; padding: 6px 4px; }
+    .dropdown-trigger:after { content: "\f107"; font-family: "Font Awesome 6 Free"; font-weight: 900; margin-left: 8px; color: #9e9fa3; }
+    .dropdown-menu { position: absolute; top: 32px; left: 0; background: #fff; border: 1px solid #eaeaec; border-radius: 4px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); min-width: 180px; z-index: 20; display: none; }
+    .dropdown-menu.open { display: block; }
+    .dropdown-menu li { list-style: none; padding: 10px 12px; font-size: 13px; color: #282c3f; cursor: pointer; }
+    .dropdown-menu li:hover { background: #f5f5f6; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        display: none;
+      }
+      .sidebar.active {
+        display: block;
+      }
+      .filter-toggle {
+        display: block;
+        padding: 12px 24px;
+        background: #f5f5f6;
+        border: none;
+        text-align: center;
+        width: 100%;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 auto;
+        /* Center horizontally */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+  <div>
+    <a href="home.html">
+      <img
+        src="https://cdn.freelogovectors.net/wp-content/uploads/2021/02/myntra-logo-freelogovectors.net_.png"
+        alt="logo"
+      />
+    </a>
+  </div>
+  <div class="categories">
+    <ul>
+      <li><a href="mens.html">Men</a></li>
+      <li><a href="women.html">Women</a></li>
+      <li><a href="kids.html">Kids</a></li>
+      <li><a href="genz.html">GENZ</a></li>
+      <li><a href="senora.html" class="active">SENORA</a></li>
+    </ul>
+  </div>
+  <!-- Search Div -->
+  <div class="search-div">
+    <img
+      id="searchpng"
+      src="https://image.flaticon.com/icons/png/128/49/49116.png"
+      alt=""
+    />
+    <input
+      type="text"
+      placeholder="Search for products, brands and more"
+    />
+  </div>
+  <div class="nav-last">
+    <div>
+   <a href="sync.html">
+        <img
+          id="svg"
+          src="../public/camera.png"
+          alt="sync studio"
+          style="width:36px"
+        />
+      </a>
+      <div>SYNC STUDIO</div>
+    </div>
+    <div>
+      <a href="">
+        <img
+          id="svg"
+          src="https://www.svgrepo.com/show/198180/user-profile.svg"
+          alt=""
+        />
+      </a>
+      <div>Profile</div>
+    </div>
+    <div>
+      <a href="">
+        <img
+          id="svg"
+          src="https://www.svgrepo.com/show/14970/heart.svg"
+          alt=""
+        />
+      </a>
+      <div>Wishlist</div>
+    </div>
+    <div>
+      <a href="">
+        <img
+          id="svg"
+          src="https://www.svgrepo.com/show/17522/bag.svg"
+          alt=""
+        />
+      </a>
+      <div>Bag</div>
+    </div>
+  </div>
+</div>
+  <!-- Breadcrumbs -->
+  <div class="breadcrumbs">
+    HOME/SENORA/CLOTHING
+  </div>
+  <div class="breadcrumbs" style="font-weight:600; font-size:16px; padding-top:0;">
+    CLOTHING - 424563 ITEMS
+  </div>
+
+  <!-- Filter Toggle (Mobile) -->
+  <div class="abc filter-toggle">FILTERS</div>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="filter-section">
+      </div>
+      <div class="filter-section">
+        <h4>Brand</h4>
+        <label><input type="checkbox" value="SANGRIA"> Sangria <span class="muted">(9454)</span></label>
+        <label><input type="checkbox" value="Anouk"> Anouk <span class="muted">(9294)</span></label>
+        <label><input type="checkbox" value="Kalini"> Kalini <span class="muted">(19540)</span></label>
+        <span class="more">+ 2658 more</span>
+      </div>
+      <div class="filter-section">
+        <h4>Price</h4>
+        <label><input type="checkbox" value="under-1000"> Under ₹1000</label>
+        <label><input type="checkbox" value="1000-2000"> ₹1000 - ₹2000</label>
+        <label><input type="checkbox" value="above-2000"> Above ₹2000</label>
+        <div style="margin-top:10px;">
+          <div class="muted" style="margin-bottom:6px;">Custom range</div>
+          <div class="price-range"><input id="priceMin" type="range" min="0" max="10000" step="50" value="0"><input id="priceMax" type="range" min="0" max="10000" step="50" value="10000"></div>
+          <div class="price-readout">₹<span id="priceMinVal">0</span> - ₹<span id="priceMaxVal">10,000+</span></div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <h4>Color</h4>
+        <div style="position:relative; margin-bottom:8px;">
+          <input type="text" id="colorSearch" placeholder="Search color" style="width:100%; padding:6px 8px; border:1px solid #d4d5d9; border-radius:4px; font-size:12px;">
+        </div>
+        <label class="color-line"><input type="checkbox" value="Blue"> <span class="color-dot color-blue"></span> Blue <span class="muted">(33686)</span></label>
+        <label class="color-line"><input type="checkbox" value="Pink"> <span class="color-dot color-pink"></span> Pink <span class="muted">(30406)</span></label>
+        <label class="color-line"><input type="checkbox" value="Green"> <span class="color-dot color-green"></span> Green <span class="muted">(26730)</span></label>
+        <label class="color-line"><input type="checkbox" value="Black"> <span class="color-dot color-black"></span> Black <span class="muted">(25307)</span></label>
+        <label class="color-line"><input type="checkbox" value="Multi"> <span class="color-dot color-multi"></span> Multi <span class="muted">(20741)</span></label>
+        <label class="color-line"><input type="checkbox" value="Yellow"> <span class="color-dot color-yellow"></span> Yellow <span class="muted">(17842)</span></label>
+        <label class="color-line"><input type="checkbox" value="White"> <span class="color-dot color-white"></span> White <span class="muted">(17380)</span></label>
+        <span class="more">+ 44 more</span>
+      </div>
+      <div class="filter-section">
+        <h4>Discount Range</h4>
+        <label><input type="checkbox" value="10"> 10% and above</label>
+        <label><input type="checkbox" value="20"> 20% and above</label>
+        <label><input type="checkbox" value="30"> 30% and above</label>
+        <label><input type="checkbox" value="40"> 40% and above</label>
+      </div>
+    </aside>
+
+    <!-- Products -->
+    <section class="products-container">
+      <!-- Mid-level toolbar with dropdowns -->
+     <div class="mid-toolbar">
+  <div class="filter-tabs">
+    <!-- Bundles dropdown -->
+    <div class="dropdown-group" id="dd-bundles">
+      <button class="dropdown-trigger">Bundles</button>
+      <ul class="dropdown-menu">
+        <li data-val="all">All</li>
+        <li data-val="single">Single Item</li>
+        <li data-val="set">Sets</li>
+      </ul>
+    </div>
+
+    <!-- Country of Origin dropdown -->
+    <div class="dropdown-group" id="dd-origin">
+      <button class="dropdown-trigger">Country of Origin</button>
+      <ul class="dropdown-menu">
+        <li data-val="india">India</li>
+        <li data-val="imported">Imported</li>
+      </ul>
+    </div>
+
+    <!-- Size dropdown -->
+    <div class="dropdown-group" id="dd-size">
+      <button class="dropdown-trigger">Size</button>
+      <ul class="dropdown-menu">
+        <li data-val="S">S</li>
+        <li data-val="M">M</li>
+        <li data-val="L">L</li>
+        <li data-val="XL">XL</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Sort on right -->
+  <div class="sort-dropdown">
+    <select id="sortSelect">
+      <option value="recommended">Sort by: Recommended</option>
+      <option value="l2h">Price: Low to High</option>
+      <option value="h2l">Price: High to Low</option>
+      <option value="newest">Newest</option>
+      <option value="discount">Best Discount</option>
+    </select>
+  </div>
+</div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+  </div>
+
+  <script>
+    // Toggle filter sidebar on mobile
+    const toggleBtn = document.querySelector('.filter-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+
+    // Simple in-page store for SENORA products
+    // Use the exact images you've placed in public/senora
+    const imageFiles = [
+      '../public/senora/IMG-20250916-WA0020.jpg',
+      '../public/senora/IMG-20250916-WA0021.jpg',
+      '../public/senora/IMG-20250916-WA0022.jpg',
+      '../public/senora/IMG-20250916-WA0023.jpg',
+      '../public/senora/IMG-20250916-WA0024.jpg',
+      '../public/senora/IMG-20250916-WA0026.jpg',
+      '../public/senora/IMG-20250916-WA0029.jpg',
+      '../public/senora/IMG-20250916-WA0030.jpg',
+      '../public/senora/IMG-20250916-WA0032.jpg',
+      '../public/senora/IMG-20250916-WA0033.jpg',
+      // '../public/senora/IMG-20250916-WA0034.jpg',
+      // '../public/senora/IMG-20250916-WA0035.jpg',
+      // '../public/senora/IMG-20250916-WA0036.jpg',
+      // '../public/senora/IMG-20250916-WA0037.jpg'
+    ];
+    const localImage = (i) => imageFiles[(i-1) % imageFiles.length];
+    const products = [
+      { id: 1, brand: 'ROYAL RAJGHARANA SAREE', name: 'Banarsi saree', price: 1509, mrp: 7545, discount: 80, color: 'Green', category: 'Saree', image: localImage(1) },
+      { id: 2, brand: 'ROYAL RAJGHARANA SAREE', name: ' Banarsi saree', price: 1999, mrp: 9995, discount: 80, color: 'Blue', category: 'Blazer', image: localImage(2) },
+      { id: 3, brand: 'PRISCA', name: 'Pure Cotton Kurta Set', price: 599, mrp: 2995, discount: 80, color: 'Pink', category: 'Kurti', image: localImage(3) },
+      { id: 4, brand: 'SANGRIA', name: 'Banarsi saree', price: 499, mrp: 2495, discount: 80, color: 'Blue', category: 'Kurti', image: localImage(4) },
+      { id: 5, brand: 'SANGRIA', name: 'Pure Cotton Shirt', price: 899, mrp: 4495, discount: 80, color: 'White', category: 'Kurta', image: localImage(5) },
+      { id: 6, brand: 'JACK&JONES', name: 'Pure Cotton Kurta', price: 449, mrp: 2245, discount: 80, color: 'Blue', category: 'Tshirt', image: localImage(6) },
+      { id: 7, brand: 'RED FLAME', name: 'Pure Cotton T-Shirt', price: 649, mrp: 3245, discount: 80, color: 'Blue', category: 'Shirt', image: localImage(7) },
+      { id: 8, brand: 'ANAYNA', name: 'Printed Flare Dress', price: 799, mrp: 3995, discount: 80, color: 'Brown', category: 'Dress', image: localImage(8) },
+      { id: 9, brand: 'ANOUK', name: 'Pure Cotton Kurta Set', price: 1599, mrp: 7995, discount: 80, color: 'Beige', category: 'Kurta Set', image: localImage(9) },
+      { id: 10, brand: 'ANAYNA', name: 'Printed Flare Dress', price: 1078, mrp: 5390, discount: 80, color: 'Blue', category: 'Saree', image: localImage(10) },
+    ].map((p, i) => ({ ...p, createdAt: Date.now() - i * 86400000 }));
+
+    const grid = document.getElementById('productGrid');
+    const sortSelect = document.getElementById('sortSelect');
+
+    // Sidebar filter state
+    const filterState = {
+      brands: new Set(),
+      priceRange: null, // [min,max]
+      colors: new Set(),
+      minDiscount: null,
+      search: '',
+      bundle: 'all',
+      origin: null,
+      size: null
+    };
+
+    // Wire sidebar checkbox handlers (use label text)
+    // Checkbox filters (brand/price band/color/discount)
+    document.querySelectorAll('.sidebar .filter-section input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const labelText = cb.parentElement.textContent.replace(/\(.*\)/,'').trim();
+        const value = cb.value || labelText;
+        const section = cb.closest('.filter-section').querySelector('h4').textContent.trim().toLowerCase();
+        if (section === 'brand') {
+          cb.checked ? filterState.brands.add(value) : filterState.brands.delete(value);
+        } else if (section === 'price') {
+          // allow one price band at a time
+          cb.closest('.filter-section').querySelectorAll('input[type="checkbox"]').forEach(c => c !== cb && (c.checked = false));
+          if (value === 'under-1000') filterState.priceRange = [0, 999];
+          else if (value === '1000-2000') filterState.priceRange = [1000, 2000];
+          else if (value === 'above-2000') filterState.priceRange = [2001, Infinity];
+          else filterState.priceRange = null;
+        } else if (section === 'color') {
+          cb.checked ? filterState.colors.add(value) : filterState.colors.delete(value);
+        } else if (section === 'discount') {
+          const v = parseInt(value);
+          // single select for discount bands
+          cb.closest('.filter-section').querySelectorAll('input[type="checkbox"]').forEach(c => c !== cb && (c.checked = false));
+          filterState.minDiscount = cb.checked ? v : null;
+        }
+        render();
+      });
+    });
+
+    // Price range sliders
+    const priceMin = document.getElementById('priceMin');
+    const priceMax = document.getElementById('priceMax');
+    const priceMinVal = document.getElementById('priceMinVal');
+    const priceMaxVal = document.getElementById('priceMaxVal');
+    function updateRange() {
+      let min = parseInt(priceMin.value);
+      let max = parseInt(priceMax.value);
+      if (min > max) [min, max] = [max, min];
+      priceMinVal.textContent = min.toLocaleString('en-IN');
+      priceMaxVal.textContent = max >= 10000 ? '10,000+' : max.toLocaleString('en-IN');
+      filterState.priceRange = [min, max >= 10000 ? Infinity : max];
+      // Uncheck preset bands to avoid conflicts
+      document.querySelectorAll('.filter-section h4+label input[value^="under"], .filter-section h4+label input[value$="2000"], .filter-section h4+label input[value^="above"]').forEach(el => el.checked = false);
+      render();
+    }
+    if (priceMin && priceMax) {
+      priceMin.addEventListener('input', updateRange);
+      priceMax.addEventListener('input', updateRange);
+    }
+
+    // Color search
+    const colorSearch = document.getElementById('colorSearch');
+    if (colorSearch) {
+      colorSearch.addEventListener('input', () => {
+        const q = colorSearch.value.trim().toLowerCase();
+        document.querySelectorAll('.filter-section h4+div+label.color-line, .filter-section label.color-line').forEach(lbl => {
+          const txt = lbl.textContent.toLowerCase();
+          lbl.style.display = txt.includes(q) ? 'flex' : 'none';
+        });
+      });
+    }
+
+    // Search filter
+    const searchInput = document.querySelector('.search-div input');
+    searchInput.addEventListener('input', e => {
+      filterState.search = e.target.value.trim().toLowerCase();
+      render();
+    });
+
+    // Sort change
+    sortSelect.addEventListener('change', render);
+
+    // Dropdown handlers
+    function wireDropdown(groupId, key) {
+      const group = document.getElementById(groupId);
+      const trigger = group.querySelector('.dropdown-trigger');
+      const menu = group.querySelector('.dropdown-menu');
+      trigger.addEventListener('click', () => {
+        menu.classList.toggle('open');
+      });
+      menu.querySelectorAll('li').forEach(li => {
+        li.addEventListener('click', () => {
+          filterState[key] = li.getAttribute('data-val');
+          trigger.textContent = trigger.textContent.split(':')[0] + ': ' + li.textContent;
+          menu.classList.remove('open');
+          render();
+        });
+      });
+      document.addEventListener('click', (e) => {
+        if (!group.contains(e.target)) menu.classList.remove('open');
+      });
+    }
+    wireDropdown('dd-bundles', 'bundle');
+    wireDropdown('dd-origin', 'origin');
+    wireDropdown('dd-size', 'size');
+
+    function applyFilters(list) {
+      return list.filter(p => {
+        if (filterState.brands.size && !filterState.brands.has(p.brand)) return false;
+        if (filterState.priceRange) {
+          const [min, max] = filterState.priceRange;
+          if (!(p.price >= min && p.price <= max)) return false;
+        }
+        if (filterState.colors.size && !filterState.colors.has(p.color)) return false;
+        if (filterState.minDiscount != null && p.discount < filterState.minDiscount) return false;
+        // Placeholder filters for dropdowns (no real fields yet). Keeping logic extensible.
+        if (filterState.origin && p.origin && p.origin !== filterState.origin) return false;
+        if (filterState.size && p.sizes && !p.sizes.includes(filterState.size)) return false;
+        if (filterState.search) {
+          const t = (p.brand + ' ' + p.name).toLowerCase();
+          if (!t.includes(filterState.search)) return false;
+        }
+        return true;
+      });
+    }
+
+    function applySort(list) {
+      const mode = sortSelect.value;
+      const arr = [...list];
+      if (mode === 'l2h') arr.sort((a,b) => a.price - b.price);
+      else if (mode === 'h2l') arr.sort((a,b) => b.price - a.price);
+      else if (mode === 'discount') arr.sort((a,b) => b.discount - a.discount);
+      else if (mode === 'newest') arr.sort((a,b) => b.createdAt - a.createdAt);
+      return arr;
+    }
+
+    function formatPrice(v) { return 'Rs. ' + v.toLocaleString('en-IN'); }
+
+    function render() {
+      const filtered = applyFilters(products);
+      const sorted = applySort(filtered);
+      grid.innerHTML = sorted.map(p => `
+        <div class="product-card" data-id="${p.id}">
+          <img src="${p.image}" alt="${p.name}">
+          <h5>${p.brand}</h5>
+          <p>${p.name}</p>
+          <p class="price">${formatPrice(p.price)} <span class="discount">(${p.discount}% off)</span></p>
+        </div>
+      `).join('');
+    }
+
+    // Click handler for product cards (placeholder behavior)
+    grid.addEventListener('click', e => {
+      const card = e.target.closest('.product-card');
+      if (!card) return;
+      const id = Number(card.getAttribute('data-id'));
+      const p = products.find(x => x.id === id);
+      const payload = {
+        brand_name: p.brand,
+        T_shirt_name: p.name,
+        img: p.image,
+        oldprice: p.mrp,
+        discount: p.discount
+      };
+      localStorage.setItem('clickedProduct', JSON.stringify(payload));
+      window.location.href = 'bag.html';
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>

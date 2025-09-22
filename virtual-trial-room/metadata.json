@@ -1,0 +1,7 @@
+{
+  "name": "Virtual Trial Room, by Drivi.AI",
+  "description": "An AI-powered virtual try-on application for retail garment shops, allowing customers to see how clothes fit without trying them on physically. This app uses the device's camera to capture images and an AI model to generate the try-on result.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

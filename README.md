@@ -25,7 +25,7 @@ Traditional online fashion platforms, while vast in catalog size, struggle to de
 # **Our Solution 💡**
 
 **Sync Studio** helps users complete their outfits by suggesting the best matching pieces from the catalog.
-A user can upload or pick a single clothing item (top, bottom, or accessory), and the AI curates the rest.
+A user can upload or pick a single clothing item (top or bottom), and the AI curates the rest.
 This turns confusion into confidence, boosting cross-selling and customer satisfaction.
 
 <img width="1545" height="845" alt="image" src="https://github.com/user-attachments/assets/e1fd59cc-89d4-4026-8dda-66c4be7010ba" />
